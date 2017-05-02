@@ -1,0 +1,10 @@
+{
+    "require": {
+        "league/flysystem-dropbox": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Renatio\\BackupManager\\": "src/"
+        }
+    }
+}

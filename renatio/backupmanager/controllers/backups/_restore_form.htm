@@ -1,0 +1,52 @@
+<?php if (!$this->fatalError): ?>
+
+<div class="modal-header alert-danger">
+    <button type="button" class="close" data-dismiss="popup">&times;</button>
+    <h4 class="modal-title"><?php echo e(trans('renatio.backupmanager::lang.restore.warning')) ?></h4>
+</div>
+
+<div class="modal-body">
+
+    <p><?php echo e(trans('renatio.backupmanager::lang.restore.help')) ?></p>
+
+    <p><?php echo e(trans('renatio.backupmanager::lang.restore.selected_info', ['name' => $backup->disk_name,
+        'created_at' =>
+        $backup->created_at])) ?></p>
+
+    <p><?php echo e(trans('renatio.backupmanager::lang.restore.warning_info')) ?></p>
+
+</div>
+
+<div class="modal-footer">
+    <a
+            href="javascript:;"
+            class="btn btn-primary"
+            data-control="popup"
+            data-handler="onRestore"
+            data-dismiss="popup"
+            data-request-data="id: '<?php echo $backup->id; ?>'">
+        <?php echo e(trans('renatio.backupmanager::lang.restore.button')) ?>
+    </a>
+    <button
+            type="button"
+            class="btn btn-default"
+            data-dismiss="popup">
+        <?php echo e(trans('backend::lang.form.cancel')) ?>
+    </button>
+</div>
+
+<?php else: ?>
+
+<div class="modal-body">
+    <p class="flash-message static error"><?php echo e(trans($this->fatalError)) ?></p>
+</div>
+<div class="modal-footer">
+    <button
+            type="button"
+            class="btn btn-default"
+            data-dismiss="popup">
+        <?php echo e(trans('backend::lang.form.close')) ?>
+    </button>
+</div>
+
+<?php endif ?>
