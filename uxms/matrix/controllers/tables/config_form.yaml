@@ -1,0 +1,19 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: uxms.matrix::lang.tables.page_title_one
+
+# Model Form Field configuration
+form: ~/plugins/uxms/matrix/models/table/fields.yaml
+
+# Model Class name
+modelClass: Uxms\Matrix\Models\Table
+
+# Default redirect location
+defaultRedirect: uxms/matrix/tables
+
+# Update page
+update:
+    title: uxms.matrix::lang.tables.edit

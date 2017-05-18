@@ -1,0 +1,16 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+  name:
+    label: uxms.matrix::lang.tables.name
+    searchable: yes
+    sortable: yes
+
+  created_at:
+    label: uxms.matrix::lang.tables.created_at
+    type: datetime
+    format: j F Y\, l h:i:s A
+    searchable: yes
+    sortable: yes

@@ -1,0 +1,84 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('uxms/matrix/tables') ?>"><?= e(trans('uxms.matrix::lang.tables.page_title')) ?></a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <?= Form::open(['class'=>'layout-item stretch layout-column']) ?>
+
+        <input type="hidden" name="tableid" value="<?= $this->vData['id'] ?>">
+
+        <?php if (!$this->vData['columnHeads'] || !$this->vData['rowHeads']): ?>
+            <div class="callout fade in callout-warning no-icon no-subheader">
+                <div class="header">
+                    <h3><?= e(trans('uxms.matrix::lang.datas.warning_title')) ?></h3>
+                </div>
+                <div class="content">
+                    <p><?= e(trans('uxms.matrix::lang.datas.warning_message')) ?></p>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="control-list list-unresponsive">
+                <table class="table data" data-control="rowlink">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <?php foreach($this->vData['columnHeads'] as $column): ?>
+                                <th style="text-align: center;"><span><?= $column['col'] ?></span></th>
+                            <?php endforeach; ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($this->vData['rowHeads'] as $rowKey => $row): ?>
+                            <tr>
+                                <td class="list-checkbox"><?= $row['row'] ?></td>
+                                <?php foreach($this->vData['columnHeads'] as $colKey => $column): ?>
+                                    <td class="list-checkbox column-button nolink">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            name="matrixdata[<?= $rowKey.'_'.$colKey ?>]"
+                                            value="<?= (isset($this->vMatrixData[$rowKey.'_'.$colKey]) ? $this->vMatrixData[$rowKey.'_'.$colKey] : '') ?>"
+                                            placeholder="" />
+                                    </td>
+                                <?php endforeach; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-buttons">
+                <div class="loading-indicator-container">
+                    <button
+                        type="submit"
+                        data-request="onUpdateTableData"
+                        data-request-data="redirect:0"
+                        data-hotkey="ctrl+s, cmd+s"
+                        data-load-indicator="Updating <?= e(trans('uxms.matrix::lang.tables.page_title_one')) ?>..."
+                        class="btn btn-primary">
+                        <?= e(trans('backend::lang.form.save')) ?>
+                    </button>
+                    <span class="btn-text">
+                        <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('uxms/matrix/tables') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                    </span>
+                </div>
+            </div>
+        <?php endif; ?>
+
+    <?= Form::close() ?>
+
+<?php else: ?>
+
+    <div class="padded-container">
+        <div class="control-breadcrumb">
+            <?= Block::placeholder('breadcrumb') ?>
+        </div>
+        <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+        <p><a href="<?= Backend::url('uxms/matrix/tables') ?>" class="btn btn-default"><?= e(trans('uxms.matrix::lang.generic.return')) ?></a></p>
+    </div>
+
+<?php endif ?>
